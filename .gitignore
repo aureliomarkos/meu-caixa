@@ -1,0 +1,29 @@
+# Virtual Environment
+Lib/
+Scripts/
+Include/
+pyvenv.cfg
+venv/
+.venv/
+env/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment variables
+.env
+
+# Database
+*.db
+*.sqlite3
+sql_app.db
+
+# IDEs
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db

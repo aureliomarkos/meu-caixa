@@ -1,0 +1,22 @@
+**Atue como um Arquiteto de Software Sênior e Especialista em UX/UI.**
+
+**Seu Objetivo:**
+Criar um plano de implementação do Frontend focado na experiência do usuário para controle de recebíveis.
+
+**Requisitos Críticos de UX/Navegação:**
+1. **Foco Principal:** O coração do sistema é o "Contas a Receber".
+2. **Menu e Roteamento:** Ao fazer login, o usuário deve cair IMEDIATAMENTE na tela de Contas a Receber. O menu lateral/topo deve priorizar este item como o primeiro da lista.
+3. **Hierarquia Sugerida:**
+   - Contas a Receber (Home/Dashboard)
+   - Nova Venda / Faturamento
+   - Cadastros (Clientes, Produtos, Fornecedores, Categorias)
+   - Financeiro (Contas a Pagar, Adiantamentos)
+   - Configurações (Usuários, Perfil)
+
+** revise os arquivos dentro das pastas models, schemas e routers para entender a estrutura do banco de dados e as requisições.
+** por favor utilize o arquivo layout.html que está dentro da pasta utils como base para criar o arquivo index.html, 
+   seja criterioso e utilize o arquivo layout.html como base para criar o arquivo index.html.
+
+**Faça um arquivo onde tenha todo o html, css e javascript.
+**coloque o arquivo index.html dentro da pasta templates.
+
