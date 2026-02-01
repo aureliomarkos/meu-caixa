@@ -47,7 +47,7 @@
 
 1. **Clone o repositório** (se aplicável)
 ```powershell
-git clone <seu-repositorio>
+git clone https://github.com/aureliomarkos/meu-caixa.git
 cd meu-caixa
 ```
 
