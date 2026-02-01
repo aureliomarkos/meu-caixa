@@ -311,17 +311,6 @@
                     </div>
                 </div>
                 <div class="flex items-center gap-2 md:gap-4 ml-2">
-                    <button
-                        class="size-10 flex items-center justify-center rounded-lg bg-slate-50 dark:bg-zinc-800 text-slate-600 dark:text-zinc-400 hover:bg-slate-100 transition-colors relative">
-                        <span class="material-symbols-outlined">notifications</span>
-                        <span class="absolute top-1 right-1 size-2 bg-red-500 rounded-full"></span>
-                    </button>
-                    <div class="hidden sm:block h-6 w-px bg-slate-200 dark:bg-zinc-700 mx-1"></div>
-                    <button id="newSaleBtn"
-                        class="bg-primary text-white px-3 md:px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 hover:bg-primary-600 transition-all shadow-sm hover:shadow-md">
-                        <span class="material-symbols-outlined text-lg">add</span>
-                        <span class="hidden sm:inline">Nova Venda</span>
-                    </button>
                 </div>
             </header>
 
@@ -339,12 +328,12 @@
                             <!-- View Toggle Buttons -->
                             <div class="flex bg-slate-100 dark:bg-zinc-800 p-1 rounded-xl">
                                 <button id="salesGridViewBtn"
-                                    class="p-2 rounded-lg transition-all text-slate-400 cursor-not-allowed" disabled
-                                    title="Em breve">
+                                    class="p-2 rounded-lg transition-all bg-white dark:bg-zinc-900 text-primary shadow-sm"
+                                    title="Ver como Cards">
                                     <span class="material-symbols-outlined text-lg block">grid_view</span>
                                 </button>
                                 <button id="salesTableViewBtn"
-                                    class="p-2 rounded-lg transition-all bg-white dark:bg-zinc-900 text-primary shadow-sm"
+                                    class="p-2 rounded-lg transition-all text-slate-400 hover:text-primary"
                                     title="Ver como Tabela">
                                     <span class="material-symbols-outlined text-lg block">table_rows</span>
                                 </button>
@@ -406,37 +395,44 @@
                             <h3 class="text-lg font-bold text-slate-900 dark:text-white">Vendas Recentes</h3>
                         </div>
                         <div class="overflow-auto flex-1">
-                            <table class="w-full text-left border-collapse">
-                                <thead class="sticky top-0 z-10 bg-slate-50 dark:bg-zinc-800 shadow-sm">
-                                    <tr
-                                        class="border-b border-slate-100 dark:border-zinc-800 bg-slate-50/50 dark:bg-zinc-800/50">
-                                        <th
-                                            class="px-6 py-4 text-xs font-bold text-slate-500 dark:text-zinc-400 uppercase tracking-wider">
-                                            ID</th>
-                                        <th
-                                            class="px-6 py-4 text-xs font-bold text-slate-500 dark:text-zinc-400 uppercase tracking-wider">
-                                            Cliente</th>
-                                        <th
-                                            class="px-6 py-4 text-xs font-bold text-slate-500 dark:text-zinc-400 uppercase tracking-wider">
-                                            Data</th>
-                                        <th
-                                            class="px-6 py-4 text-xs font-bold text-slate-500 dark:text-zinc-400 uppercase tracking-wider">
-                                            Valor</th>
-                                        <th
-                                            class="px-6 py-4 text-xs font-bold text-slate-500 dark:text-zinc-400 uppercase tracking-wider">
-                                            Forma Pgto</th>
-                                        <th
-                                            class="px-6 py-4 text-xs font-bold text-slate-500 dark:text-zinc-400 uppercase tracking-wider">
-                                            Status</th>
-                                        <th
-                                            class="px-6 py-4 text-xs font-bold text-slate-500 dark:text-zinc-400 uppercase tracking-wider text-right">
-                                            Ações</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="salesTableBody" class="divide-y divide-slate-100 dark:divide-zinc-800">
-                                    <!-- Sales will be loaded here -->
-                                </tbody>
-                            </table>
+                            <div id="salesTableContainer">
+                                <table class="w-full text-left border-collapse">
+                                    <thead class="sticky top-0 z-10 bg-slate-50 dark:bg-zinc-800 shadow-sm">
+                                        <tr
+                                            class="border-b border-slate-100 dark:border-zinc-800 bg-slate-50/50 dark:bg-zinc-800/50">
+                                            <th
+                                                class="px-6 py-4 text-xs font-bold text-slate-500 dark:text-zinc-400 uppercase tracking-wider">
+                                                ID</th>
+                                            <th
+                                                class="px-6 py-4 text-xs font-bold text-slate-500 dark:text-zinc-400 uppercase tracking-wider">
+                                                Cliente</th>
+                                            <th
+                                                class="px-6 py-4 text-xs font-bold text-slate-500 dark:text-zinc-400 uppercase tracking-wider">
+                                                Data</th>
+                                            <th
+                                                class="px-6 py-4 text-xs font-bold text-slate-500 dark:text-zinc-400 uppercase tracking-wider">
+                                                Valor</th>
+                                            <th
+                                                class="px-6 py-4 text-xs font-bold text-slate-500 dark:text-zinc-400 uppercase tracking-wider">
+                                                Forma Pgto</th>
+                                            <th
+                                                class="px-6 py-4 text-xs font-bold text-slate-500 dark:text-zinc-400 uppercase tracking-wider">
+                                                Status</th>
+                                            <th
+                                                class="px-6 py-4 text-xs font-bold text-slate-500 dark:text-zinc-400 uppercase tracking-wider text-right">
+                                                Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="salesTableBody" class="divide-y divide-slate-100 dark:divide-zinc-800">
+                                        <!-- Sales will be loaded here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- Card View Container -->
+                            <div id="salesGrid"
+                                class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-6">
+                                <!-- Cards will be injected here -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1975,6 +1971,7 @@
             advances: [],
             currentView: 'receivables',
             clientViewMode: 'grid', // 'grid' or 'table'
+            salesViewMode: 'grid', // Changed from 'table' to 'grid'
             productViewMode: 'grid', // 'grid' or 'table'
             categoryViewMode: 'grid', // 'grid' or 'table'
             employeeViewMode: 'grid', // 'grid' or 'table'
@@ -3644,7 +3641,17 @@
 
         // Render Functions
         function renderSales() {
+            const tableContainer = document.getElementById('salesTableContainer');
+            const grid = document.getElementById('salesGrid');
             const tbody = document.getElementById('salesTableBody');
+
+            if (state.salesViewMode === 'grid') {
+                grid.classList.remove('hidden');
+                tableContainer.classList.add('hidden');
+            } else {
+                grid.classList.add('hidden');
+                tableContainer.classList.remove('hidden');
+            }
 
             // Filter based on search query AND filter modal settings
             const filteredSales = state.sales.filter(sale => {
@@ -3680,67 +3687,122 @@
             const paginatedSales = filteredSales.slice(start, end);
 
             if (paginatedSales.length === 0) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="7" class="px-6 py-12 text-center text-slate-500 dark:text-zinc-400">
-                            <span class="material-symbols-outlined text-5xl mb-2 opacity-50">${state.searchQuery || Object.values(state.filters.sales).some(v => v) ? 'search_off' : 'receipt_long'}</span>
-                            <p class="text-sm font-medium">Nenhuma venda encontrada com os filtros atuais</p>
-                            ${Object.values(state.filters.sales).some(v => v) ? '<button onclick="clearFilters()" class="mt-4 text-primary text-xs font-bold hover:underline">Limpar Filtros</button>' : ''}
-                        </td>
-                    </tr>
+                const emptyMsg = `
+                    <div class="col-span-full py-12 text-center text-slate-500 dark:text-zinc-400">
+                        <span class="material-symbols-outlined text-5xl mb-2 opacity-50">${state.searchQuery || Object.values(state.filters.sales).some(v => v) ? 'search_off' : 'receipt_long'}</span>
+                        <p class="text-sm font-medium">Nenhuma venda encontrada com os filtros atuais</p>
+                        ${Object.values(state.filters.sales).some(v => v) ? '<button onclick="clearFilters()" class="mt-4 text-primary text-xs font-bold hover:underline">Limpar Filtros</button>' : ''}
+                    </div>
                 `;
+
+                if (state.salesViewMode === 'grid') {
+                    grid.innerHTML = emptyMsg;
+                } else {
+                    tbody.innerHTML = `<tr><td colspan="7">${emptyMsg}</td></tr>`;
+                }
                 return;
             }
 
-            tbody.innerHTML = paginatedSales.map(sale => {
-                const client = state.clients.find(c => c.id_cliente === sale.id_cliente);
-                const clientName = client ? client.nome : 'Consumidor Final (Balcão)';
+            if (state.salesViewMode === 'grid') {
+                grid.innerHTML = paginatedSales.map(sale => {
+                    const client = state.clients.find(c => c.id_cliente === sale.id_cliente);
+                    const clientName = client ? client.nome : 'Consumidor Final (Balcão)';
+                    const statusClass = getStatusClass(sale.status_pagamento);
 
-                return `
-                    <tr class="hover:bg-slate-50 dark:hover:bg-zinc-800/50 transition-colors">
-                        <td class="px-6 py-4">
-                            <span class="text-sm font-bold text-slate-900 dark:text-white">#${sale.id_vendas}</span>
-                        </td>
-                        <td class="px-6 py-4">
-                            <div class="flex items-center gap-2">
-                                <div class="size-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-xs">
-                                    ${clientName.charAt(0).toUpperCase()}
+                    return `
+                        <div class="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-xl overflow-hidden hover:shadow-lg transition-all card-hover group">
+                            <div class="p-5">
+                                <div class="flex justify-between items-start mb-4">
+                                    <div>
+                                        <span class="text-[10px] font-black uppercase tracking-widest text-slate-400">Venda #${sale.id_vendas}</span>
+                                        <h3 class="text-sm font-bold text-slate-900 dark:text-white line-clamp-1 mt-0.5">${clientName}</h3>
+                                    </div>
+                                    <span class="status-badge ${statusClass}">${sale.status_pagamento}</span>
                                 </div>
-                                <span class="text-sm font-medium text-slate-700 dark:text-zinc-300">${clientName}</span>
+                                
+                                <div class="flex items-center gap-3 mb-4 text-xs text-slate-500 dark:text-zinc-400">
+                                    <div class="flex items-center gap-1">
+                                        <span class="material-symbols-outlined text-sm">calendar_month</span>
+                                        ${formatDate(sale.data_venda)}
+                                    </div>
+                                    <div class="flex items-center gap-1">
+                                        <span class="material-symbols-outlined text-sm">payments</span>
+                                        ${sale.forma_pagamento ? getPaymentMethodLabel(sale.forma_pagamento) : '-'}
+                                    </div>
+                                </div>
+
+                                <div class="flex items-end justify-between">
+                                    <div>
+                                        <p class="text-[10px] text-slate-400 font-bold uppercase mb-0.5">Total</p>
+                                        <p class="text-lg font-black text-slate-900 dark:text-white leading-none">${formatCurrency(sale.valor_total)}</p>
+                                    </div>
+                                    <div class="flex gap-1">
+                                        <button class="size-8 rounded-lg bg-slate-50 dark:bg-zinc-800 text-slate-400 hover:text-primary flex items-center justify-center transition-colors" onclick="viewSale(${sale.id_vendas})" title="Visualizar">
+                                            <span class="material-symbols-outlined text-lg">visibility</span>
+                                        </button>
+                                        <button class="size-8 rounded-lg bg-slate-50 dark:bg-zinc-800 text-slate-400 hover:text-primary flex items-center justify-center transition-colors" onclick="editSale(${sale.id_vendas})" title="Editar">
+                                            <span class="material-symbols-outlined text-lg">edit</span>
+                                        </button>
+                                        <button class="size-8 rounded-lg bg-slate-50 dark:bg-zinc-800 text-slate-400 hover:text-red-500 flex items-center justify-center transition-colors" onclick="deleteSale(${sale.id_vendas})" title="Excluir">
+                                            <span class="material-symbols-outlined text-lg">delete</span>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
-                        </td>
-                        <td class="px-6 py-4 text-sm text-slate-600 dark:text-zinc-400">
-                            ${formatDate(sale.data_venda)}
-                        </td>
-                        <td class="px-6 py-4">
-                            <span class="text-sm font-bold text-slate-900 dark:text-white">${formatCurrency(sale.valor_total)}</span>
-                        </td>
-                        <td class="px-6 py-4">
-                            <span class="text-xs font-medium text-slate-600 dark:text-zinc-400">
-                                ${sale.forma_pagamento ? getPaymentMethodLabel(sale.forma_pagamento) : '-'}
-                            </span>
-                        </td>
-                        <td class="px-6 py-4">
-                            <span class="status-badge ${getStatusClass(sale.status_pagamento)}">
-                                ${sale.status_pagamento}
-                            </span>
-                        </td>
-                        <td class="px-6 py-4 text-right">
-                            <div class="flex justify-end gap-1">
-                                <button class="p-1.5 text-slate-400 hover:text-primary transition-colors" onclick="viewSale(${sale.id_vendas})" title="Visualizar">
-                                    <span class="material-symbols-outlined text-lg">visibility</span>
-                                </button>
-                                <button class="p-1.5 text-slate-400 hover:text-primary transition-colors" onclick="editSale(${sale.id_vendas})" title="Editar">
-                                    <span class="material-symbols-outlined text-lg">edit</span>
-                                </button>
-                                <button class="p-1.5 text-slate-400 hover:text-red-500 transition-colors" onclick="deleteSale(${sale.id_vendas})" title="Excluir">
-                                    <span class="material-symbols-outlined text-lg">delete</span>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                `;
-            }).join('');
+                        </div>
+                    `;
+                }).join('');
+            } else {
+                tbody.innerHTML = paginatedSales.map(sale => {
+                    const client = state.clients.find(c => c.id_cliente === sale.id_cliente);
+                    const clientName = client ? client.nome : 'Consumidor Final (Balcão)';
+
+                    return `
+                        <tr class="hover:bg-slate-50 dark:hover:bg-zinc-800/50 transition-colors">
+                            <td class="px-6 py-4">
+                                <span class="text-sm font-bold text-slate-900 dark:text-white">#${sale.id_vendas}</span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <div class="flex items-center gap-2">
+                                    <div class="size-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-xs">
+                                        ${clientName.charAt(0).toUpperCase()}
+                                    </div>
+                                    <span class="text-sm font-medium text-slate-700 dark:text-zinc-300">${clientName}</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-sm text-slate-600 dark:text-zinc-400">
+                                ${formatDate(sale.data_venda)}
+                            </td>
+                            <td class="px-6 py-4">
+                                <span class="text-sm font-bold text-slate-900 dark:text-white">${formatCurrency(sale.valor_total)}</span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <span class="text-xs font-medium text-slate-600 dark:text-zinc-400">
+                                    ${sale.forma_pagamento ? getPaymentMethodLabel(sale.forma_pagamento) : '-'}
+                                </span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <span class="status-badge ${getStatusClass(sale.status_pagamento)}">
+                                    ${sale.status_pagamento}
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 text-right">
+                                <div class="flex justify-end gap-1">
+                                    <button class="p-1.5 text-slate-400 hover:text-primary transition-colors" onclick="viewSale(${sale.id_vendas})" title="Visualizar">
+                                        <span class="material-symbols-outlined text-lg">visibility</span>
+                                    </button>
+                                    <button class="p-1.5 text-slate-400 hover:text-primary transition-colors" onclick="editSale(${sale.id_vendas})" title="Editar">
+                                        <span class="material-symbols-outlined text-lg">edit</span>
+                                    </button>
+                                    <button class="p-1.5 text-slate-400 hover:text-red-500 transition-colors" onclick="deleteSale(${sale.id_vendas})" title="Excluir">
+                                        <span class="material-symbols-outlined text-lg">delete</span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                }).join('');
+            }
         }
 
         function updateStats() {
@@ -3893,13 +3955,16 @@
         function toggleDarkMode() {
             const html = document.documentElement;
             const isDark = html.classList.contains('dark');
+            const icon = document.querySelector('#darkModeToggle span');
 
             if (isDark) {
                 html.classList.remove('dark');
                 localStorage.setItem('theme', 'light');
+                if (icon) icon.textContent = 'dark_mode';
             } else {
                 html.classList.add('dark');
                 localStorage.setItem('theme', 'dark');
+                if (icon) icon.textContent = 'light_mode';
             }
         }
 
@@ -3944,9 +4009,7 @@
             });
         });
 
-        document.getElementById('newSaleBtn').addEventListener('click', () => {
-            switchView('sales');
-        });
+
 
         // Client event listeners
         const newClientBtn = document.getElementById('newClientBtn');
@@ -4034,6 +4097,28 @@
         });
 
         // View Mode Toggle events
+        function updateSalesViewMode(mode) {
+            state.salesViewMode = mode;
+            const gridBtn = document.getElementById('salesGridViewBtn');
+            const tableBtn = document.getElementById('salesTableViewBtn');
+
+            if (mode === 'grid') {
+                gridBtn.classList.add('bg-white', 'dark:bg-zinc-900', 'text-primary', 'shadow-sm');
+                gridBtn.classList.remove('text-slate-400');
+                tableBtn.classList.remove('bg-white', 'dark:bg-zinc-900', 'text-primary', 'shadow-sm');
+                tableBtn.classList.add('text-slate-400');
+            } else {
+                tableBtn.classList.add('bg-white', 'dark:bg-zinc-900', 'text-primary', 'shadow-sm');
+                tableBtn.classList.remove('text-slate-400');
+                gridBtn.classList.remove('bg-white', 'dark:bg-zinc-900', 'text-primary', 'shadow-sm');
+                gridBtn.classList.add('text-slate-400');
+            }
+            renderSales();
+        }
+
+        document.getElementById('salesGridViewBtn').addEventListener('click', () => updateSalesViewMode('grid'));
+        document.getElementById('salesTableViewBtn').addEventListener('click', () => updateSalesViewMode('table'));
+
         document.getElementById('clientGridViewBtn').addEventListener('click', () => updateClientViewMode('grid'));
         document.getElementById('clientTableViewBtn').addEventListener('click', () => updateClientViewMode('table'));
 
@@ -4572,6 +4657,8 @@
             const savedTheme = localStorage.getItem('theme');
             if (savedTheme === 'dark') {
                 document.documentElement.classList.add('dark');
+                const icon = document.querySelector('#darkModeToggle span');
+                if (icon) icon.textContent = 'light_mode';
             }
 
             // Check for saved token
@@ -4596,6 +4683,7 @@
             updateCategoryViewMode('grid');
             updateEmployeeViewMode('grid');
             updateSupplierViewMode('grid');
+            updateSalesViewMode('grid');
         }
 
         async function addSalePayment(e) {
@@ -4767,8 +4855,9 @@
 
             // Current month ref
             const now = new Date();
-            const currentMonthStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
-            document.getElementById('advancesRefMonth').textContent = currentMonthStr; // Simplified
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const year = now.getFullYear();
+            document.getElementById('advancesRefMonth').textContent = `${month}/${year}`;
         }
 
         function openAdvanceModal(id = null) {
@@ -4880,8 +4969,19 @@
         }
 
         function clearAdvanceFilters() {
+            document.getElementById('filterAdvanceStartDate').value = '';
+            document.getElementById('filterAdvanceEndDate').value = '';
+            document.getElementById('filterAdvanceType').value = '';
+            document.getElementById('filterAdvanceEmployee').value = '';
+
             state.filters.advances = { startDate: '', endDate: '', type: '', employeeId: '' };
-            applyAdvanceFilters(); // Re-render and reuse logic
+
+            renderAdvances();
+            closeFilterAdvancesModal();
+
+            // Reset button style
+            const btn = document.getElementById('openFilterAdvancesBtn');
+            btn.classList.remove('text-primary', 'bg-primary/10', 'border-primary');
         }
 
         init();
