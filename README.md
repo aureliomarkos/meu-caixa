@@ -157,59 +157,10 @@ meu-caixa/
 - [x] Busca global por módulo no header
 - [x] Paginação integrada em todas as listas
 
-### 🔄 Em Desenvolvimento
-
-#### Relatórios
-- [ ] Exportação de dados (CSV/PDF)
-- [ ] Gráficos detalhados
-- [ ] Balancete mensal
-
----
-
-## 🎨 Capturas de Tela
-
-### Modo Claro
-![Dashboard Light Mode](dashboard_preview.png)
-
-### Modo Escuro
-![Dashboard Dark Mode](dashboard_dark_mode.png)
-
----
-
-## 📚 Documentação
-
-### Guias Disponíveis
-
-1. **[FRONTEND_IMPLEMENTATION_PLAN.md](FRONTEND_IMPLEMENTATION_PLAN.md)**
-   - Plano completo de implementação
-   - Arquitetura e estrutura
-   - Design system
-   - API endpoints
-   - Roadmap de desenvolvimento
-
-2. **[QUICK_START.md](QUICK_START.md)**
-   - Guia de início rápido
-   - Instruções passo a passo
-   - Criação de usuários
-   - Troubleshooting
-
-3. **[UI_VISUAL_SUMMARY.md](UI_VISUAL_SUMMARY.md)**
-   - Resumo visual da interface
-   - Diagramas ASCII
-   - Paleta de cores
-   - Componentes
-
-4. **[EXECUTIVE_SUMMARY.md](EXECUTIVE_SUMMARY.md)**
-   - Resumo executivo
-   - Funcionalidades implementadas
-   - Estatísticas do código
-   - Próximos passos
-
 ### API Documentation
 - Swagger UI: `http://localhost:8000/docs`
 - ReDoc: `http://localhost:8000/redoc`
 
----
 
 ## 🛠️ Tecnologias
 
