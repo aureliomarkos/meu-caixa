@@ -599,16 +599,30 @@
                             </h2>
                             <p class="text-slate-500 dark:text-zinc-400 mt-1">Gerencie seus débitos e compromissos</p>
                         </div>
-                        <div class="flex gap-2">
-                            <button id="openFilterPayablesBtn" onclick="openFilterPayablesModal()"
-                                class="btn btn-secondary flex-1 md:flex-none flex items-center justify-center gap-2">
-                                <span class="material-symbols-outlined text-lg">filter_list</span>
-                                Filtros
-                            </button>
-                            <button onclick="openPayableModal()" class="btn btn-primary flex items-center gap-2">
-                                <span class="material-symbols-outlined text-lg">add</span>
-                                Nova Conta
-                            </button>
+                        <div class="flex items-center gap-4">
+                            <!-- View Toggle Buttons -->
+                            <div class="flex bg-slate-100 dark:bg-zinc-800 p-1 rounded-xl">
+                                <button id="payablesGridViewBtn" class="p-2 rounded-lg transition-all"
+                                    title="Ver como Cards">
+                                    <span class="material-symbols-outlined text-lg block">grid_view</span>
+                                </button>
+                                <button id="payablesTableViewBtn" class="p-2 rounded-lg transition-all"
+                                    title="Ver como Tabela">
+                                    <span class="material-symbols-outlined text-lg block">table_rows</span>
+                                </button>
+                            </div>
+
+                            <div class="flex gap-2">
+                                <button id="openFilterPayablesBtn" onclick="openFilterPayablesModal()"
+                                    class="btn btn-secondary flex-1 md:flex-none flex items-center justify-center gap-2">
+                                    <span class="material-symbols-outlined text-lg">filter_list</span>
+                                    Filtros
+                                </button>
+                                <button onclick="openPayableModal()" class="btn btn-primary flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-lg">add</span>
+                                    Nova Conta
+                                </button>
+                            </div>
                         </div>
                     </div>
 
@@ -649,8 +663,8 @@
                     </div>
 
                     <!-- Payables List -->
-                    <div
-                        class="bg-white dark:bg-zinc-900 rounded-xl border border-slate-200 dark:border-zinc-800 overflow-hidden shadow-sm">
+                    <div id="payablesTableContainer"
+                        class="hidden bg-white dark:bg-zinc-900 rounded-xl border border-slate-200 dark:border-zinc-800 overflow-hidden shadow-sm">
                         <div class="p-6 border-b border-slate-200 dark:border-zinc-800">
                             <h3 class="text-lg font-bold text-slate-900 dark:text-white">Relatório de Débitos</h3>
                         </div>
@@ -686,6 +700,11 @@
                         </div>
                     </div>
 
+                    <!-- Card View Container -->
+                    <div id="payablesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                        <!-- Cards will be injected here -->
+                    </div>
+
                 </div>
 
                 <!-- Advances View -->
@@ -697,16 +716,30 @@
                             <p class="text-slate-500 dark:text-zinc-400 mt-1">Gerencie adiantamentos e vales de
                                 funcionários</p>
                         </div>
-                        <div class="flex gap-2">
-                            <button id="openFilterAdvancesBtn" onclick="openFilterAdvancesModal()"
-                                class="btn btn-secondary flex-1 md:flex-none flex items-center justify-center gap-2">
-                                <span class="material-symbols-outlined text-lg">filter_list</span>
-                                Filtros
-                            </button>
-                            <button onclick="openAdvanceModal()" class="btn btn-primary flex items-center gap-2">
-                                <span class="material-symbols-outlined text-lg">add</span>
-                                Novo Adiantamento
-                            </button>
+                        <div class="flex items-center gap-4">
+                            <!-- View Toggle Buttons -->
+                            <div class="flex bg-slate-100 dark:bg-zinc-800 p-1 rounded-xl">
+                                <button id="advancesGridViewBtn" class="p-2 rounded-lg transition-all"
+                                    title="Ver como Cards">
+                                    <span class="material-symbols-outlined text-lg block">grid_view</span>
+                                </button>
+                                <button id="advancesTableViewBtn" class="p-2 rounded-lg transition-all"
+                                    title="Ver como Tabela">
+                                    <span class="material-symbols-outlined text-lg block">table_rows</span>
+                                </button>
+                            </div>
+
+                            <div class="flex gap-2">
+                                <button id="openFilterAdvancesBtn" onclick="openFilterAdvancesModal()"
+                                    class="btn btn-secondary flex-1 md:flex-none flex items-center justify-center gap-2">
+                                    <span class="material-symbols-outlined text-lg">filter_list</span>
+                                    Filtros
+                                </button>
+                                <button onclick="openAdvanceModal()" class="btn btn-primary flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-lg">add</span>
+                                    Novo Adiantamento
+                                </button>
+                            </div>
                         </div>
                     </div>
 
@@ -731,8 +764,8 @@
                     </div>
 
                     <!-- Advances List -->
-                    <div
-                        class="bg-white dark:bg-zinc-900 rounded-xl border border-slate-200 dark:border-zinc-800 overflow-hidden shadow-sm">
+                    <div id="advancesTableContainer"
+                        class="hidden bg-white dark:bg-zinc-900 rounded-xl border border-slate-200 dark:border-zinc-800 overflow-hidden shadow-sm">
                         <div class="p-6 border-b border-slate-200 dark:border-zinc-800">
                             <h3 class="text-lg font-bold text-slate-900 dark:text-white">Histórico de Adiantamentos</h3>
                         </div>
@@ -766,6 +799,11 @@
                                 </tbody>
                             </table>
                         </div>
+                    </div>
+
+                    <!-- Card View Container -->
+                    <div id="advancesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                        <!-- Cards will be injected here -->
                     </div>
                 </div>
             </div>
@@ -1919,10 +1957,10 @@
                     <label class="form-label">Tipo</label>
                     <select id="filterAdvanceType" class="form-input">
                         <option value="">Todos</option>
-                        <option value="Adiantamento">Adiantamento</option>
-                        <option value="Vale">Vale</option>
-                        <option value="Salário">Salário</option>
-                        <option value="Bônus">Bônus</option>
+                        <option value="Adiantamento">Adiantamento Salarial</option>
+                        <option value="Vale">Vale Transporte/Refeição</option>
+                        <option value="Salário">Salário Mensal</option>
+                        <option value="Bônus">Bônus/Gratificação</option>
                         <option value="Outros">Outros</option>
                     </select>
                 </div>
@@ -2006,6 +2044,8 @@
                 }
             },
             payables: [],
+            payablesViewMode: 'grid',
+            advancesViewMode: 'grid',
             pagination: {
                 clients: { currentPage: 1, itemsPerPage: 10, totalItems: 0 },
                 products: { currentPage: 1, itemsPerPage: 10, totalItems: 0 },
@@ -2042,7 +2082,10 @@
 
         function formatSimpleDate(dateString) {
             if (!dateString) return '-';
-            const date = new Date(dateString + 'T00:00:00');
+            if (typeof dateString !== 'string') dateString = String(dateString);
+            // Se já tiver T ou espaço, assume que já tem hora e não concatena T00:00:00
+            const hasTime = dateString.includes('T') || dateString.includes(' ');
+            const date = new Date(hasTime ? dateString : dateString + 'T00:00:00');
             return new Intl.DateTimeFormat('pt-BR', {
                 day: '2-digit',
                 month: '2-digit',
@@ -2068,6 +2111,32 @@
                 'Pix': 'PIX'
             };
             return methodMap[method] || method;
+        }
+
+        function getAdvanceTypeLabel(type) {
+            const map = {
+                'Adiantamento': 'Adiantamento Salarial',
+                'Vale': 'Vale Transporte/Refeição',
+                'Salário': 'Salário Mensal',
+                'Bônus': 'Bônus/Gratificação'
+            };
+            return map[type] || type;
+        }
+
+        function getAdvanceTypeClass(type) {
+            const label = getAdvanceTypeLabel(type);
+            switch (label) {
+                case 'Adiantamento Salarial':
+                    return 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400 border-amber-200/50 dark:border-amber-800/50';
+                case 'Vale Transporte/Refeição':
+                    return 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400 border-emerald-200/50 dark:border-emerald-800/50';
+                case 'Salário Mensal':
+                    return 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400 border-blue-200/50 dark:border-blue-800/50';
+                case 'Bônus/Gratificação':
+                    return 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400 border-purple-200/50 dark:border-purple-800/50';
+                default:
+                    return 'bg-slate-100 text-slate-700 dark:bg-zinc-800 dark:text-zinc-400 border-slate-200 dark:border-zinc-700';
+            }
         }
 
         // API Functions
@@ -4119,6 +4188,62 @@
         document.getElementById('salesGridViewBtn').addEventListener('click', () => updateSalesViewMode('grid'));
         document.getElementById('salesTableViewBtn').addEventListener('click', () => updateSalesViewMode('table'));
 
+        function updatePayablesViewMode(mode) {
+            state.payablesViewMode = mode;
+            const gridBtn = document.getElementById('payablesGridViewBtn');
+            const tableBtn = document.getElementById('payablesTableViewBtn');
+            const grid = document.getElementById('payablesGrid');
+            const tableContainer = document.getElementById('payablesTableContainer');
+
+            if (mode === 'grid') {
+                gridBtn.classList.add('bg-white', 'dark:bg-zinc-900', 'text-primary', 'shadow-sm');
+                gridBtn.classList.remove('text-slate-400');
+                tableBtn.classList.remove('bg-white', 'dark:bg-zinc-900', 'text-primary', 'shadow-sm');
+                tableBtn.classList.add('text-slate-400');
+                grid.classList.remove('hidden');
+                tableContainer.classList.add('hidden');
+            } else {
+                tableBtn.classList.add('bg-white', 'dark:bg-zinc-900', 'text-primary', 'shadow-sm');
+                tableBtn.classList.remove('text-slate-400');
+                gridBtn.classList.remove('bg-white', 'dark:bg-zinc-900', 'text-primary', 'shadow-sm');
+                gridBtn.classList.add('text-slate-400');
+                grid.classList.add('hidden');
+                tableContainer.classList.remove('hidden');
+            }
+            renderPayables();
+        }
+
+        document.getElementById('payablesGridViewBtn').addEventListener('click', () => updatePayablesViewMode('grid'));
+        document.getElementById('payablesTableViewBtn').addEventListener('click', () => updatePayablesViewMode('table'));
+
+        function updateAdvancesViewMode(mode) {
+            state.advancesViewMode = mode;
+            const gridBtn = document.getElementById('advancesGridViewBtn');
+            const tableBtn = document.getElementById('advancesTableViewBtn');
+            const grid = document.getElementById('advancesGrid');
+            const tableContainer = document.getElementById('advancesTableContainer');
+
+            if (mode === 'grid') {
+                gridBtn.classList.add('bg-white', 'dark:bg-zinc-900', 'text-primary', 'shadow-sm');
+                gridBtn.classList.remove('text-slate-400');
+                tableBtn.classList.remove('bg-white', 'dark:bg-zinc-900', 'text-primary', 'shadow-sm');
+                tableBtn.classList.add('text-slate-400');
+                grid.classList.remove('hidden');
+                tableContainer.classList.add('hidden');
+            } else {
+                tableBtn.classList.add('bg-white', 'dark:bg-zinc-900', 'text-primary', 'shadow-sm');
+                tableBtn.classList.remove('text-slate-400');
+                gridBtn.classList.remove('bg-white', 'dark:bg-zinc-900', 'text-primary', 'shadow-sm');
+                gridBtn.classList.add('text-slate-400');
+                grid.classList.add('hidden');
+                tableContainer.classList.remove('hidden');
+            }
+            renderAdvances();
+        }
+
+        document.getElementById('advancesGridViewBtn').addEventListener('click', () => updateAdvancesViewMode('grid'));
+        document.getElementById('advancesTableViewBtn').addEventListener('click', () => updateAdvancesViewMode('table'));
+
         document.getElementById('clientGridViewBtn').addEventListener('click', () => updateClientViewMode('grid'));
         document.getElementById('clientTableViewBtn').addEventListener('click', () => updateClientViewMode('table'));
 
@@ -4475,7 +4600,8 @@
 
         function renderPayables() {
             const tbody = document.getElementById('payablesTableBody');
-            if (!tbody) return;
+            const grid = document.getElementById('payablesGrid');
+            if (!tbody || !grid) return;
 
             const filtered = state.payables.filter(ap => {
                 const supplier = state.suppliers.find(s => s.id_fornecedor === ap.id_fornecedor);
@@ -4504,35 +4630,81 @@
             const paginatedPayables = filtered.slice(startIndex, endIndex);
 
             if (filtered.length === 0) {
+                const emptyMsg = `<div class="col-span-full py-12 text-center text-slate-500 italic">Nenhuma conta encontrada</div>`;
                 tbody.innerHTML = `<tr><td colspan="6" class="px-6 py-12 text-center text-slate-500 italic">Nenhuma conta encontrada</td></tr>`;
-                updatePayablesPaginationFooter();
+                grid.innerHTML = emptyMsg;
+                updatePaginationFooter();
                 return;
             }
 
-            tbody.innerHTML = paginatedPayables.map(ap => {
-                const supplier = state.suppliers.find(s => s.id_fornecedor === ap.id_fornecedor);
-                return `
-                    <tr class="hover:bg-slate-50 dark:hover:bg-zinc-800/50 transition-colors">
-                        <td class="px-6 py-4 text-sm font-bold text-slate-900 dark:text-white">${formatDate(ap.data_vencimento)}</td>
-                        <td class="px-6 py-4 text-sm text-slate-700 dark:text-zinc-300 font-medium">${supplier ? supplier.nome : 'Sem Fornecedor'}</td>
-                        <td class="px-6 py-4 text-sm text-center text-slate-500 font-mono text-xs">${ap.numero_nota || '-'}</td>
-                        <td class="px-6 py-4 text-sm font-black text-rose-600 dark:text-rose-400">${formatCurrency(ap.valor_total_nota)}</td>
-                        <td class="px-6 py-4 text-center">
-                            <span class="status-badge ${getStatusClass(ap.status)}">${ap.status}</span>
-                        </td>
-                        <td class="px-6 py-4 text-right">
-                            <div class="flex justify-end gap-1">
-                                <button class="p-1.5 text-slate-400 hover:text-primary transition-colors" onclick="editPayable(${ap.id_contas_pagar})" title="Editar">
-                                    <span class="material-symbols-outlined text-lg">edit</span>
-                                </button>
-                                <button class="p-1.5 text-slate-400 hover:text-red-500 transition-colors" onclick="deletePayable(${ap.id_contas_pagar})" title="Excluir">
-                                    <span class="material-symbols-outlined text-lg">delete</span>
-                                </button>
+            if (state.payablesViewMode === 'table') {
+                tbody.innerHTML = paginatedPayables.map(ap => {
+                    const supplier = state.suppliers.find(s => s.id_fornecedor === ap.id_fornecedor);
+                    return `
+                        <tr class="hover:bg-slate-50 dark:hover:bg-zinc-800/50 transition-colors">
+                            <td class="px-6 py-4 text-sm font-bold text-slate-900 dark:text-white">${formatSimpleDate(ap.data_vencimento)}</td>
+                            <td class="px-6 py-4 text-sm text-slate-700 dark:text-zinc-300 font-medium">${supplier ? supplier.nome : 'Sem Fornecedor'}</td>
+                            <td class="px-6 py-4 text-sm text-center text-slate-500 font-mono text-xs">${ap.numero_nota || '-'}</td>
+                            <td class="px-6 py-4 text-sm font-black text-rose-600 dark:text-rose-400">${formatCurrency(ap.valor_total_nota)}</td>
+                            <td class="px-6 py-4 text-center">
+                                <span class="status-badge ${getStatusClass(ap.status)}">${ap.status}</span>
+                            </td>
+                            <td class="px-6 py-4 text-right">
+                                <div class="flex justify-end gap-1">
+                                    <button class="p-1.5 text-slate-400 hover:text-primary transition-colors" onclick="editPayable(${ap.id_contas_pagar})" title="Editar">
+                                        <span class="material-symbols-outlined text-lg">edit</span>
+                                    </button>
+                                    <button class="p-1.5 text-slate-400 hover:text-red-500 transition-colors" onclick="deletePayable(${ap.id_contas_pagar})" title="Excluir">
+                                        <span class="material-symbols-outlined text-lg">delete</span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                }).join('');
+            } else {
+                grid.innerHTML = paginatedPayables.map(ap => {
+                    const supplier = state.suppliers.find(s => s.id_fornecedor === ap.id_fornecedor);
+                    return `
+                        <div class="bg-white dark:bg-zinc-900 rounded-2xl border border-slate-200 dark:border-zinc-800 p-5 shadow-sm hover:shadow-md transition-all card-hover flex flex-col">
+                            <div class="flex justify-between items-start mb-4">
+                                <div class="size-10 rounded-xl bg-rose-100 dark:bg-rose-900/20 text-rose-600 dark:text-rose-400 flex items-center justify-center">
+                                    <span class="material-symbols-outlined">payments</span>
+                                </div>
+                                <span class="status-badge ${getStatusClass(ap.status)}">${ap.status}</span>
                             </div>
-                        </td>
-                    </tr>
-                `;
-            }).join('');
+                            
+                            <div class="mb-4">
+                                <h4 class="text-sm font-bold text-slate-500 dark:text-zinc-500 uppercase tracking-wider mb-1">Fornecedor</h4>
+                                <p class="text-base font-black text-slate-900 dark:text-white truncate">${supplier ? supplier.nome : 'Sem Fornecedor'}</p>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4 mb-6">
+                                <div>
+                                    <h4 class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Vencimento</h4>
+                                    <p class="text-sm font-bold text-slate-700 dark:text-zinc-300">${formatSimpleDate(ap.data_vencimento)}</p>
+                                </div>
+                                <div>
+                                    <h4 class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Valor</h4>
+                                    <p class="text-lg font-black text-rose-600 dark:text-rose-400">${formatCurrency(ap.valor_total_nota)}</p>
+                                </div>
+                            </div>
+
+                            <div class="pt-4 border-t border-slate-100 dark:border-zinc-800 flex justify-between items-center mt-auto">
+                                <span class="text-[10px] font-mono text-slate-400">DOC: ${ap.numero_nota || '-'}</span>
+                                <div class="flex gap-2">
+                                    <button onclick="editPayable(${ap.id_contas_pagar})" class="size-8 rounded-lg bg-slate-50 dark:bg-zinc-800 text-slate-400 hover:text-primary hover:bg-primary/10 flex items-center justify-center transition-colors">
+                                        <span class="material-symbols-outlined text-lg">edit</span>
+                                    </button>
+                                    <button onclick="deletePayable(${ap.id_contas_pagar})" class="size-8 rounded-lg bg-slate-50 dark:bg-zinc-800 text-slate-400 hover:text-red-500 hover:bg-red-50 flex items-center justify-center transition-colors">
+                                        <span class="material-symbols-outlined text-lg">delete</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
 
             updatePaginationFooter();
         }
@@ -4684,6 +4856,8 @@
             updateEmployeeViewMode('grid');
             updateSupplierViewMode('grid');
             updateSalesViewMode('grid');
+            updatePayablesViewMode(state.payablesViewMode);
+            updateAdvancesViewMode(state.advancesViewMode);
         }
 
         async function addSalePayment(e) {
@@ -4785,7 +4959,8 @@
 
         function renderAdvances() {
             const tbody = document.getElementById('advancesTableBody');
-            if (!tbody) return;
+            const grid = document.getElementById('advancesGrid');
+            if (!tbody || !grid) return;
 
             const filtered = state.advances.filter(adv => {
                 const employee = state.employees.find(e => e.id_funcionario === adv.id_funcionario);
@@ -4797,11 +4972,11 @@
                 if (!matchesSearch) return false;
 
                 // Filters
-                const date = adv.data_registro.split('T')[0];
-                if (state.filters.advances.startDate && date < state.filters.advances.startDate) return false;
-                if (state.filters.advances.endDate && date > state.filters.advances.endDate) return false;
-                if (state.filters.advances.type && adv.tipo !== state.filters.advances.type) return false;
-                if (state.filters.advances.employeeId && adv.id_funcionario.toString() !== state.filters.advances.employeeId.toString()) return false;
+                const date = adv.data_registro ? adv.data_registro.split('T')[0] : '';
+                if (state.filters.advances.startDate && date && date < state.filters.advances.startDate) return false;
+                if (state.filters.advances.endDate && date && date > state.filters.advances.endDate) return false;
+                if (state.filters.advances.type && getAdvanceTypeLabel(adv.tipo) !== state.filters.advances.type) return false;
+                if (state.filters.advances.employeeId && adv.id_funcionario && adv.id_funcionario.toString() !== state.filters.advances.employeeId.toString()) return false;
 
                 return true;
             });
@@ -4814,37 +4989,85 @@
             const paginated = filtered.slice(start, end);
 
             if (filtered.length === 0) {
+                const emptyMsg = `<div class="col-span-full py-12 text-center text-slate-500 italic">Nenhum registro encontrado</div>`;
                 tbody.innerHTML = `<tr><td colspan="6" class="px-6 py-12 text-center text-slate-500 italic">Nenhum registro encontrado</td></tr>`;
+                grid.innerHTML = emptyMsg;
                 updatePaginationFooter();
                 return;
             }
 
-            tbody.innerHTML = paginated.map(adv => {
-                const employee = state.employees.find(e => e.id_funcionario === adv.id_funcionario);
-                return `
-                    <tr class="hover:bg-slate-50 dark:hover:bg-zinc-800/50 transition-colors border-b border-slate-100 dark:border-zinc-800/50">
-                        <td class="px-6 py-4 text-sm text-slate-600 dark:text-zinc-400">${formatDate(adv.data_registro)}</td>
-                        <td class="px-6 py-4 text-sm font-bold text-slate-900 dark:text-white capitalize">${employee ? employee.nome : 'N/A'}</td>
-                        <td class="px-6 py-4 text-sm text-slate-600 dark:text-zinc-400">
-                             <span class="inline-block px-2 py-0.5 rounded text-xs font-bold bg-slate-100 dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700">
-                                ${adv.tipo}
-                            </span>
-                        </td>
-                         <td class="px-6 py-4 text-sm text-slate-600 dark:text-zinc-400">${adv.mes_referencia || '-'}</td>
-                        <td class="px-6 py-4 text-sm font-black text-slate-900 dark:text-white">${formatCurrency(adv.valor)}</td>
-                        <td class="px-6 py-4 text-right">
-                            <div class="flex justify-end gap-1">
-                                <button onclick="editAdvance(${adv.id_lancamento})" class="p-1.5 text-slate-400 hover:text-primary transition-colors">
-                                    <span class="material-symbols-outlined text-lg">edit</span>
-                                </button>
-                                <button onclick="deleteAdvance(${adv.id_lancamento})" class="p-1.5 text-slate-400 hover:text-red-500 transition-colors">
-                                    <span class="material-symbols-outlined text-lg">delete</span>
-                                </button>
+            if (state.advancesViewMode === 'table') {
+                tbody.innerHTML = paginated.map(adv => {
+                    const employee = state.employees.find(e => String(e.id_funcionario) === String(adv.id_funcionario));
+                    return `
+                        <tr class="hover:bg-slate-50 dark:hover:bg-zinc-800/50 transition-colors border-b border-slate-100 dark:border-zinc-800/50">
+                            <td class="px-6 py-4 text-sm text-slate-600 dark:text-zinc-400">${formatSimpleDate(adv.data_registro)}</td>
+                            <td class="px-6 py-4 text-sm font-bold text-slate-900 dark:text-white capitalize">${employee ? employee.nome : 'N/A'}</td>
+                            <td class="px-6 py-4 text-sm text-slate-600 dark:text-zinc-400">
+                                <span class="inline-block px-2 py-0.5 rounded text-[10px] uppercase font-black border ${getAdvanceTypeClass(adv.tipo)}">
+                                    ${getAdvanceTypeLabel(adv.tipo)}
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 text-sm text-slate-600 dark:text-zinc-400">${adv.mes_referencia || '-'}</td>
+                            <td class="px-6 py-4 text-sm font-black text-slate-900 dark:text-white">${formatCurrency(adv.valor)}</td>
+                            <td class="px-6 py-4 text-right">
+                                <div class="flex justify-end gap-1">
+                                    <button onclick="editAdvance(${adv.id_lancamento})" class="p-1.5 text-slate-400 hover:text-primary transition-colors">
+                                        <span class="material-symbols-outlined text-lg">edit</span>
+                                    </button>
+                                    <button onclick="deleteAdvance(${adv.id_lancamento})" class="p-1.5 text-slate-400 hover:text-red-500 transition-colors">
+                                        <span class="material-symbols-outlined text-lg">delete</span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                }).join('');
+                grid.innerHTML = '';
+            } else {
+                grid.innerHTML = paginated.map(adv => {
+                    const employee = state.employees.find(e => String(e.id_funcionario) === String(adv.id_funcionario));
+                    return `
+                        <div class="bg-white dark:bg-zinc-900 rounded-2xl border border-slate-200 dark:border-zinc-800 p-5 shadow-sm hover:shadow-md transition-all card-hover flex flex-col">
+                            <div class="flex justify-between items-start mb-4">
+                                <div class="size-10 rounded-xl bg-indigo-100 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
+                                    <span class="material-symbols-outlined">payments</span>
+                                </div>
+                                <span class="status-badge text-[10px] font-black border ${getAdvanceTypeClass(adv.tipo)}">${getAdvanceTypeLabel(adv.tipo)}</span>
                             </div>
-                        </td>
-                    </tr>
-                `;
-            }).join('');
+                            
+                            <div class="mb-4">
+                                <h4 class="text-sm font-bold text-slate-500 dark:text-zinc-500 uppercase tracking-wider mb-1">Funcionário</h4>
+                                <p class="text-base font-black text-slate-900 dark:text-white truncate">${employee ? employee.nome : 'N/A'}</p>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4 mb-6">
+                                <div>
+                                    <h4 class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Data</h4>
+                                    <p class="text-sm font-bold text-slate-700 dark:text-zinc-300">${formatSimpleDate(adv.data_registro)}</p>
+                                </div>
+                                <div>
+                                    <h4 class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Valor</h4>
+                                    <p class="text-lg font-black text-indigo-600 dark:text-indigo-400">${formatCurrency(adv.valor)}</p>
+                                </div>
+                            </div>
+
+                            <div class="pt-4 border-t border-slate-100 dark:border-zinc-800 flex justify-between items-center mt-auto">
+                                <span class="text-[10px] font-mono text-slate-400">REF: ${adv.mes_referencia || '-'}</span>
+                                <div class="flex gap-2">
+                                    <button onclick="editAdvance(${adv.id_lancamento})" class="size-8 rounded-lg bg-slate-50 dark:bg-zinc-800 text-slate-400 hover:text-primary hover:bg-primary/10 flex items-center justify-center transition-colors">
+                                        <span class="material-symbols-outlined text-lg">edit</span>
+                                    </button>
+                                    <button onclick="deleteAdvance(${adv.id_lancamento})" class="size-8 rounded-lg bg-slate-50 dark:bg-zinc-800 text-slate-400 hover:text-red-500 hover:bg-red-50 flex items-center justify-center transition-colors">
+                                        <span class="material-symbols-outlined text-lg">delete</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+                tbody.innerHTML = '';
+            }
 
             updatePaginationFooter();
         }
