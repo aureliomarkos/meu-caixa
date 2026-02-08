@@ -181,6 +181,56 @@
                 <div id="loginError"
                     class="hidden mt-4 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg text-red-700 dark:text-red-400 text-sm">
                 </div>
+                <div class="mt-6 text-center">
+                    <button onclick="showRegister()" class="text-sm text-primary font-bold hover:underline">
+                        Não tem uma conta? Cadastre-se
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Screen -->
+    <div id="registerScreen"
+        class="hidden min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-primary/10 via-background-light to-blue-50 dark:from-primary/5 dark:via-background-dark dark:to-zinc-900">
+        <div class="w-full max-w-md">
+            <div
+                class="bg-white dark:bg-zinc-900 rounded-2xl shadow-2xl p-8 border border-slate-200 dark:border-zinc-800">
+                <div class="text-center mb-8">
+                    <div
+                        class="size-16 bg-primary rounded-xl flex items-center justify-center text-white mx-auto mb-4 shadow-lg">
+                        <span class="material-symbols-outlined text-3xl">person_add</span>
+                    </div>
+                    <h1 class="text-3xl font-black text-slate-900 dark:text-white tracking-tight">Criar Conta</h1>
+                    <p class="text-sm text-slate-500 dark:text-zinc-400 mt-1">Cadastre-se para começar</p>
+                </div>
+                <form id="registerForm" class="space-y-4">
+                    <div class="form-group">
+                        <label class="form-label">Nome Completo</label>
+                        <input type="text" id="registerName" class="form-input" placeholder="Seu Nome" required />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" id="registerEmail" class="form-input" placeholder="seu@email.com"
+                            required />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Senha</label>
+                        <input type="password" id="registerPassword" class="form-input" placeholder="••••••••"
+                            required />
+                    </div>
+                    <button type="submit" class="btn btn-primary w-full py-3 text-base">
+                        Cadastrar
+                    </button>
+                </form>
+                <div id="registerError"
+                    class="hidden mt-4 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg text-red-700 dark:text-red-400 text-sm">
+                </div>
+                <div class="mt-6 text-center">
+                    <button onclick="showLogin()" class="text-sm text-primary font-bold hover:underline">
+                        Já tem uma conta? Entre aqui
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -4058,8 +4108,42 @@
             }
         }
 
+        function showRegister() {
+            document.getElementById('loginScreen').classList.add('hidden');
+            document.getElementById('registerScreen').classList.remove('hidden');
+        }
+
+        function showLogin() {
+            document.getElementById('registerScreen').classList.add('hidden');
+            document.getElementById('loginScreen').classList.remove('hidden');
+        }
+
+        async function registerSubmit(event) {
+            event.preventDefault();
+            const nome = document.getElementById('registerName').value;
+            const email = document.getElementById('registerEmail').value;
+            const senha = document.getElementById('registerPassword').value;
+            const errorDiv = document.getElementById('registerError');
+
+            try {
+                errorDiv.classList.add('hidden');
+                await apiRequest('/users/', {
+                    method: 'POST',
+                    body: JSON.stringify({ nome, email, senha })
+                });
+
+                alert('Conta criada com sucesso! Faça login para continuar.');
+                showLogin();
+                document.getElementById('loginEmail').value = email;
+            } catch (error) {
+                errorDiv.textContent = error.message;
+                errorDiv.classList.remove('hidden');
+            }
+        }
+
         // Event Listeners
         document.getElementById('loginForm').addEventListener('submit', loginSubmit);
+        document.getElementById('registerForm').addEventListener('submit', registerSubmit);
 
         document.getElementById('payableForm').addEventListener('submit', savePayable);
         document.getElementById('addSalePaymentForm').addEventListener('submit', addSalePayment);
