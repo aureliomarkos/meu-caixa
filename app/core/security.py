@@ -9,9 +9,10 @@ from app.core.config import settings
 from app.core.database import get_db
 from app.models import user as user_model
 
+
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-ALGORITHM = "HS256"
+ALGORITHM = settings.ALGORITHM
 
 def create_access_token(subject: Union[str, Any], expires_delta: timedelta = None) -> str:
     if expires_delta:

@@ -32,7 +32,8 @@ def ensure_default_client():
         db.close()
 
 app = FastAPI(
-    title=settings.PROJECT_NAME,
+    title=settings.APP_NAME,
+    version=settings.APP_VERSION,
     openapi_url=f"/openapi.json"
 )
 
